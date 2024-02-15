@@ -9,3 +9,28 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Client {
+  id Int @id @default(autoincrement())
+  limit Int 
+  saldoInicial Int
+  transactions Transaction[]
+
+  @@map("clients")
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+  valor Int
+  tipo  Type
+  clientId Int
+  client Client @relation(fields: [clientId],references: [id])
+  realizadaEm DateTime @default(now())
+
+  @@map("transaction")
+}
+
+enum Type {
+  C
+  D
+}
