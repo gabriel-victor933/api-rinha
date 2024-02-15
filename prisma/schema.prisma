@@ -12,7 +12,7 @@ datasource db {
 
 model Client {
   id Int @id @default(autoincrement())
-  limit Int 
+  limite Int 
   saldoInicial Int
   transactions Transaction[]
 
@@ -22,15 +22,10 @@ model Client {
 model Transaction {
   id Int @id @default(autoincrement())
   valor Int
-  tipo  Type
+  tipo  String
   clientId Int
   client Client @relation(fields: [clientId],references: [id])
   realizadaEm DateTime @default(now())
 
   @@map("transaction")
-}
-
-enum Type {
-  C
-  D
 }
